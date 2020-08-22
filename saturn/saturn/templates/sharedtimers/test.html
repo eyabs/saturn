@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1 class="cover-heading">Join a room</h1>
+    <p class="lead">Enter an existing room code below or enter a new code to create a new room.</p>
+    <p class="lead">
+      <form>        
+        <div class="form-group">
+          <label for="room-code-input">Room code</label>
+          <input type="text" class="form-control" id="room-code-input" placeholder="e.g. timely-agricola">
+        </div>
+        <button type="submit" class="btn btn-lg btn-primary">Go</button>
+      </form>
+    </p>
+{% endblock %}

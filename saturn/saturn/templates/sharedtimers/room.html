@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block content %}
+  <!--style>
+  .timerContainer {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 300;
+  width:700px;
+  margin:10px auto;
+  min-height: 40px;
+  border-top:0px;
+  }
+  .timer, .reset {
+  float:left;
+  width: 54%;
+  padding: 5px 0;
+  font-size: 24px;
+  text-align:center;
+  color: #fff;
+  background: #A90000;
+  cursor: pointer
+  }
+  .timer {
+  font-family: 'Source Code Pro', monospace, sans-serif;
+  }
+  .reset {
+  background: #550000;
+  color: white;
+  width:14.9%;
+  border-left: 1px solid #990000;
+  }
+  .reset:hover {
+  background: #CC0000;
+  }
+  .lighter {
+  background: #CC0000
+  }
+  </style-->
+  Timers!
+  <!--
+   <div class="timerContainer">
+    <div class="timer" onclick="startTimer('asdf')">Start Studying!</div>
+    <div class="startTimer reset" onclick="startTimer()" >
+      <i class="fa fa-play"></i>
+    </div>
+    <div class="pauseTimer reset" onclick="pauseTimer()" >
+      <i class="fa fa-pause"></i>
+    </div>
+    <div class="resetTimer reset" onclick="resetTimer()">Reset</div>
+  </div>
+     -->
+  <div class="card timerContainer">
+    <div class="card-body">
+      <span class="name">Player 1</span>
+      <span class="timer" onclick="startTimer('asdf')">Start Studying!</span>
+      <div class="btn-group pull-right" role="group">
+        <button type="button" class="btn btn-secondary startTimer reset" onclick="startTimer()" >
+        <i class="fa fa-play"></i>
+        </button>
+        <button type="button" class="btn btn-secondary pauseTimer reset" onclick="pauseTimer()" >
+        <i class="fa fa-pause"></i>
+        </button>
+        <button type="button" class="btn btn-secondary resetTimer reset" onclick="resetTimer()">Reset</button>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="{% static "sharedtimers/stopwatch.js" %}"></script>
+</body>
+{% endblock %}

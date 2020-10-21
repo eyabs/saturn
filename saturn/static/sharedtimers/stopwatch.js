@@ -1,86 +1,67 @@
-var startTimerButton = document.querySelector('.startTimer');
-var pauseTimerButton = document.querySelector('.pauseTimer');
-var timerDisplay = document.querySelector('.timer');
-var startTime;
-var updatedTime;
-var difference;
-var tInterval;
-var savedTime;
-var paused = 0;
-var running = 0;
+var startTime = {};
+var updatedTime = {};
+var difference = {};
+var tInterval = {};
+var savedTime = {};
+var paused = {};
+var running = {};
 
 function startTimer(timerId){
-  console.log(timerId)
-  if(!running){
-    startTime = new Date().getTime();
-    tInterval = setInterval(getShowTime, 91);
-    paused = 0;
-    running = 1;
-    // timerDisplay.style.background = "#FF0000";
-    // timerDisplay.style.cursor = "auto";
-    // timerDisplay.style.color = "yellow";
-    // startTimerButton.classList.add('lighter');
-    // pauseTimerButton.classList.remove('lighter');
-    // startTimerButton.style.cursor = "auto";
-    // pauseTimerButton.style.cursor = "pointer";
+  if(!running[timerId]){
+    startTime[timerId] = new Date().getTime();
+    tInterval[timerId] = setInterval(function() { getShowTime(timerId); }, 1000);
+    paused[timerId] = false;
+    running[timerId] = true;
+    getShowTime(timerId)
   }
 }
 
-function pauseTimer(){
-  if (!difference){
+function pauseTimer(timerId){
+  if (!difference[timerId]){
     // if timer never started, don't allow pause button to do anything
-  } else if (!paused) {
-    clearInterval(tInterval);
-    savedTime = difference;
-    paused = 1;
-    running = 0;
-    // timerDisplay.style.background = "#A90000";
-    // timerDisplay.style.color = "#690000";
-    // timerDisplay.style.cursor = "pointer";
-    // startTimerButton.classList.remove('lighter');
-    // pauseTimerButton.classList.add('lighter');
-    // startTimerButton.style.cursor = "pointer";
-    // pauseTimerButton.style.cursor = "auto";
+  } else if (!paused[timerId]) {
+    clearInterval(tInterval[timerId]);
+    savedTime[timerId] = difference[timerId];
+    paused[timerId] = true;
+    running[timerId] = false;
   } else {
-    startTimer();
+    startTimer(timerId);
   }
 }
 
-function resetTimer(){
-  clearInterval(tInterval);
-  savedTime = 0;
-  difference = 0;
-  paused = 0;
-  running = 0;
-  timerDisplay.innerHTML = 'Start Studying!';
-  // timerDisplay.style.background = "#A90000";
-  // timerDisplay.style.color = "#fff";
-  // timerDisplay.style.cursor = "pointer";
-  // startTimerButton.classList.remove('lighter');
-  // pauseTimerButton.classList.remove('lighter');
-  // startTimerButton.style.cursor = "pointer";
-  // pauseTimerButton.style.cursor = "auto";
+function resetTimer(timerId){
+  clearInterval(tInterval[timerId]);
+  savedTime[timerId] = 0;
+  difference[timerId] = 0;
+  paused[timerId] = false;
+  running[timerId] = false;
+  $('#' + timerId + ' .timer')[0].innerHTML = '00:00:00.00';
+
 }
 
-function getShowTime(){
+function getShowTime(timerId){
+
+  var timerDisplay = $('#' + timerId + ' .timer')[0];  
+
   updatedTime = new Date().getTime();
-  if (savedTime){
-    difference = (updatedTime - startTime) + savedTime;
+  if (savedTime[timerId]){
+    difference[timerId] = (updatedTime - startTime[timerId]) + savedTime[timerId];
   } else {
-    difference =  updatedTime - startTime;
+    difference[timerId] =  updatedTime - startTime[timerId];
   }
-  // var days = Math.floor(difference / (1000 * 60 * 60 * 24));
-  var hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  var minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-  var seconds = Math.floor((difference % (1000 * 60)) / 1000);
-  var milliseconds = Math.floor((difference % (1000 * 60)));
+
+  var d = difference[timerId]
+  var hours = Math.floor((d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((d % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((d % (1000 * 60)) / 1000);
+  var milliseconds = Math.floor((d % (1000 * 60)));
 
   hours = (hours < 10) ? "0" + hours : hours;
   minutes = (minutes < 10) ? "0" + minutes : minutes;
   seconds = (seconds < 10) ? "0" + seconds : seconds;
-  //milliseconds = (milliseconds < 100) ? (milliseconds < 10) ? "00" + milliseconds : "0" + milliseconds : milliseconds;
-  milliseconds = "000" + milliseconds
-  milliseconds = milliseconds.substr(milliseconds.length - 3, 2)
-  timerDisplay.innerHTML = hours + ':' + minutes + ':' + seconds + '.' + milliseconds;
-  //timerDisplay.innerHTML = hours + ':' + minutes + ':' + seconds;
+  ////milliseconds = (milliseconds < 100) ? (milliseconds < 10) ? "00" + milliseconds : "0" + milliseconds : milliseconds;
+  // milliseconds = "000" + milliseconds
+  //milliseconds = milliseconds.substr(milliseconds.length - 3, 2)
+  //timerDisplay.innerHTML = hours + ':' + minutes + ':' + seconds + '.' + milliseconds;
+  timerDisplay.innerHTML = hours + ':' + minutes + ':' + seconds;
 }

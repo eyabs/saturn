@@ -49,18 +49,33 @@
     <div class="resetTimer reset" onclick="resetTimer()">Reset</div>
   </div>
      -->
-  <div class="card timerContainer">
+  <div class="card timerContainer" id='timer1'>
     <div class="card-body">
-      <span class="name">Player 1</span>
-      <span class="timer" onclick="startTimer('asdf')">Start Studying!</span>
+      <span class="timer-name">Player 1</span>
+      <span class="timer" onclick="startTimer('timer1')">--:--:--</span>
       <div class="btn-group pull-right" role="group">
-        <button type="button" class="btn btn-secondary startTimer reset" onclick="startTimer()" >
+        <button type="button" class="btn btn-secondary startTimer reset" onclick="startTimer('timer1')" >
         <i class="fa fa-play"></i>
         </button>
-        <button type="button" class="btn btn-secondary pauseTimer reset" onclick="pauseTimer()" >
+        <button type="button" class="btn btn-secondary pauseTimer reset" onclick="pauseTimer('timer1')" >
         <i class="fa fa-pause"></i>
         </button>
-        <button type="button" class="btn btn-secondary resetTimer reset" onclick="resetTimer()">Reset</button>
+        <button type="button" class="btn btn-secondary resetTimer reset" onclick="resetTimer('timer1')">Reset</button>
+      </div>
+    </div>
+  </div>
+  <div class="card timerContainer" id = 'timer2'>
+    <div class="card-body">
+      <span class="timer-name">Player 2</span>
+      <span class="timer" onclick="startTimer('timer2')">--:--:--</span>
+      <div class="btn-group pull-right" role="group">
+        <button type="button" class="btn btn-secondary startTimer reset" onclick="startTimer('timer2')" >
+        <i class="fa fa-play"></i>
+        </button>
+        <button type="button" class="btn btn-secondary pauseTimer reset" onclick="pauseTimer('timer2')" >
+        <i class="fa fa-pause"></i>
+        </button>
+        <button type="button" class="btn btn-secondary resetTimer reset" onclick="resetTimer('timer2')">Reset</button>
       </div>
     </div>
   </div>
